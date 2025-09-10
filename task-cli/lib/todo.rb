@@ -2,7 +2,7 @@ require "json"
 require_relative "task"
 
 class Todo
-  FILENAME = "todo's.json"
+  FILENAME = File.join(__dir__, "..", "todo's.json")
 
   def create_item(options)
     data = load
