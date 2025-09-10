@@ -2,7 +2,7 @@ require "json"
 require_relative "task"
 
 class Todo
-  FILENAME = "todo's.json"
+  FILENAME = File.join(__dir__, "..", "todo's.json")
 
   def create_item(options)
     data = load
@@ -19,7 +19,8 @@ class Todo
 
     yield(item)
     item["updatedAt"] = Time.now
-    data[item["id"] - 1] = item
+    index = data.find_index { |t| t["id"] == item["id"] }
+    data[index] = item if index
     save data
     puts "Changes was save."
   end
@@ -38,15 +39,14 @@ class Todo
     item = find_id(data, id.to_i)
     raise "Element not found =*(" if item.nil?
 
-    pop = data.delete(data[item["id"] - 1])
+    pop = data.delete(item)
     save data
     puts "Element '#{pop["description"]}' was deleted."
   end
 
   def list(status)
-    p status
     data = status ? load.find_all { |el| el["status"] == status } : load
-    data.each { |el| el.each { |key, val| puts "#{key}: #{val}" } }
+    data.each { |task| puts "[#{task["id"]}] #{task["description"]} (#{task["status"]})" }
   end
 
   private
@@ -56,7 +56,7 @@ class Todo
   end
 
   def load
-    data = File.exist?(FILENAME) ? JSON.parse(File.read(FILENAME)) : []
+    File.exist?(FILENAME) ? JSON.parse(File.read(FILENAME)) : []
   end
 
   def save(data)
