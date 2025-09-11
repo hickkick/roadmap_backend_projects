@@ -2,7 +2,7 @@ require_relative "timer"
 require_relative "dashboard"
 
 class Game
-  attr_reader :player, :guess, :level, :attempts, :max_attempts, :time_in_sec
+  attr_reader :player, :guess, :level, :attempts, :max_attempts, :time_in_sec, :result
 
   LEVELS = {
     1 => { attempts: 10, text: "Great! You have selected the Easy difficulty level.\nLet's start the game!" },
@@ -17,6 +17,7 @@ class Game
     @attempts = 0
     @max_attempts = 5
     @time_in_sec = 0
+    @result = nil
   end
 
   def set_level
@@ -35,11 +36,12 @@ class Game
   end
 
   def play
-    puts @guess
+    # puts @guess #for testing
     start = Timer.new
     loop do
       if @attempts == @max_attempts
         puts "Sorry you lose =*("
+        @result = 0
         break
       end
       print "Enter your guess: "
@@ -55,6 +57,7 @@ class Game
 
         finish = Timer.new
         @time_in_sec = start.diff(finish)
+        @result = 1
         break
       end
     end
@@ -68,6 +71,7 @@ class Game
       attempts: attempts,
       max_attempts: max_attempts,
       time_in_sec: time_in_sec,
+      result: result,
     }
   end
 end

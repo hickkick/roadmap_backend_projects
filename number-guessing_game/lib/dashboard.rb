@@ -13,7 +13,7 @@ class Dashboard
   end
 
   def make
-    rows = @data.sort_by { |e| [-e[:level], e[:attempts], e[:time_in_sec]] }[0..9]
+    rows = @data.select { |el| el[:result] == 1 }.sort_by { |e| [-e[:level], e[:attempts], e[:time_in_sec]] }[0..9]
 
     format = "| %2s | %-12s | %10s | %10s | %6s |\n"
 
