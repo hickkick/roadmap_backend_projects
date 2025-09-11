@@ -6,7 +6,8 @@ class Timer
   end
 
   def diff(other)
-    other.now - self.now
+    res = other.now - self.now
+    show(res)
   end
 
   def show(result)
