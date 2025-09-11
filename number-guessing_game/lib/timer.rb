@@ -9,7 +9,9 @@ class Timer
     res = other.now - self.now
   end
 
-  def show(result)
-    "#{result} sec"
+  def self.format_time(seconds)
+    hrs, rem = seconds.divmod(3600)
+    mins, secs = rem.divmod(60)
+    format("%02d:%02d:%02d", hrs, mins, secs)
   end
 end

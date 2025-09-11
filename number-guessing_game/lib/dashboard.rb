@@ -1,4 +1,5 @@
 require "json"
+require_relative "timer"
 
 class Dashboard
   FILENAME = File.join(__dir__, "..", "scores.json")
@@ -13,6 +14,7 @@ class Dashboard
 
   def make
     rows = @data.sort_by { |e| [-e[:level], e[:attempts], e[:time_in_sec]] }[0..9]
+
     format = "| %2s | %-12s | %10s | %10s | %6s |\n"
 
     header = format % ["#", "Player", "Attempts", "Time", "Level"]
@@ -25,7 +27,7 @@ class Dashboard
     output << line + "\n"
 
     rows.each_with_index do |el, i|
-      output << format % [i + 1, el[:player], el[:attempts], el[:time_in_sec], el[:level]]
+      output << format % [i + 1, el[:player], el[:attempts], Timer.format_time(el[:time_in_sec]), el[:level]]
       output << line + "\n"
     end
 
