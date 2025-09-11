@@ -7,6 +7,7 @@ This repository contains my solutions to backend-oriented projects from [roadmap
 ## Solutions
 
 * [Task Tracker](https://roadmap.sh/projects/task-tracker) — [solution here](https://github.com/hickkick/roadmap_backend_projects/tree/main/task-cli)
+* [Number Guessing Game](https://roadmap.sh/projects/task-tracker) — [solution here](https://github.com/hickkick/roadmap_backend_projects/tree/main/number-guessing_game)
 
 ---
 
